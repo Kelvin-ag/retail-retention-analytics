@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "c0909b04eb901d63d3e1",
   "position": {
-    "x": 938.26247689463958,
-    "y": 337.37523105360447,
+    "x": 0,
+    "y": 371.01449275362319,
     "z": 12000,
-    "height": 690.72088724584114,
-    "width": 982.18114602587809,
+    "height": 593.62318840579712,
+    "width": 939.46169772256735,
     "tabOrder": 12000
   },
   "visual": {
@@ -292,7 +292,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Monthly product sales mix by customer status'"
+                  "Value": "'Customer Mix'"
                 }
               }
             }
@@ -301,5 +301,6 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  }
+  },
+  "isHidden": true
 }

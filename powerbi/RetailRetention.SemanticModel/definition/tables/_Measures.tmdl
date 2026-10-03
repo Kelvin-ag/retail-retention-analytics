@@ -70,7 +70,7 @@ table _Measures
 			
 			CALCULATE(
 			    [Net Product Revenue],
-			    SAMEPERIODLASTYEAR(dim_date[date_key])
+			    'Time Comparison'[Comparison] = "Prior Year"
 			)
 		formatString: "£"#,0.00;-"£"#,0.00;"£"#,0.00
 		displayFolder: Revenue
@@ -80,17 +80,10 @@ table _Measures
 
 	measure 'Revenue YoY %' =
 			
-			VAR CurrentRevenue = [Net Product Revenue]
-			VAR PreviousRevenue = [Revenue Prior Year]
-			RETURN
-			    IF(
-			        ISBLANK(CurrentRevenue) || ISBLANK(PreviousRevenue),
-			        BLANK(),
-			        DIVIDE(
-			            CurrentRevenue - PreviousRevenue,
-			            PreviousRevenue
-			        )
-			    )
+			CALCULATE(
+			    [Net Product Revenue],
+			    'Time Comparison'[Comparison] = "YoY %"
+			)
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: Revenue
 		lineageTag: 93e11cd7-06e1-42e9-8ceb-02882b03e009

@@ -1,38 +1,38 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "7b60aacdb3a7c7b6c371",
+  "name": "99eb9976da15a25671b2",
   "position": {
-    "x": 939.46169772256735,
-    "y": 371.01449275362319,
-    "z": 6000,
-    "height": 593.62318840579712,
-    "width": 980.53830227743276,
-    "tabOrder": 6000
+    "x": 10.536585365853657,
+    "y": 0,
+    "z": 4001,
+    "height": 204.14634146341461,
+    "width": 873.21951219512187,
+    "tabOrder": 4001
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Category": {
+        "Rows": {
           "projections": [
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_customers"
+                      "Entity": "Time Comparison"
                     }
                   },
-                  "Property": "Customer ID Status"
+                  "Property": "Comparison"
                 }
               },
-              "queryRef": "dim_customers.Customer ID Status",
-              "nativeQueryRef": "Customer ID Status",
+              "queryRef": "Time Comparison.Comparison",
+              "nativeQueryRef": "Comparison",
               "active": true
             }
           ]
         },
-        "Tooltips": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -56,16 +56,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Revenue Prior Year"
+                  "Property": "Paid Orders"
                 }
               },
-              "queryRef": "_Measures.Revenue Prior Year",
-              "nativeQueryRef": "Revenue Prior Year"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
+              "queryRef": "_Measures.Paid Orders",
+              "nativeQueryRef": "Paid Orders"
+            },
             {
               "field": {
                 "Measure": {
@@ -74,32 +70,14 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Revenue Change vs Prior Year"
+                  "Property": "Active Customers"
                 }
               },
-              "queryRef": "_Measures.Revenue Change vs Prior Year",
-              "nativeQueryRef": "Revenue Change vs Prior Year"
+              "queryRef": "_Measures.Active Customers",
+              "nativeQueryRef": "Active Customers"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "_Measures"
-                  }
-                },
-                "Property": "Revenue Change vs Prior Year"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "drillFilterOtherVisuals": true

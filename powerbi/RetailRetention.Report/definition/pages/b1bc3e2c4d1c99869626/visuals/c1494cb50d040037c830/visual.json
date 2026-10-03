@@ -3,10 +3,10 @@
   "name": "c1494cb50d040037c830",
   "position": {
     "x": 0,
-    "y": 295.45286506469506,
+    "y": 371.01449275362319,
     "z": 5000,
-    "height": 443.17929759704253,
-    "width": 938.26247689463958,
+    "height": 593.56466876971615,
+    "width": 938.80126182965307,
     "tabOrder": 5000
   },
   "visual": {
@@ -183,7 +183,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Monthly net product revenue - 2011 vs 2010'"
+                  "Value": "'Revenue Trend'"
                 }
               }
             },

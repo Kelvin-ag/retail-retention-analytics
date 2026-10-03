@@ -1,6 +1,7 @@
 model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
 	sourceQueryCulture: en-GB
 	valueFilterBehavior: independent
 	dataAccessOptions
@@ -11,7 +12,7 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_QueryOrder = ["dim_date","SourcePath","dim_customers","dim_products","fct_order_lines","fct_customer_snapshot","fct_cohort_retention","RawSourcePath","stg_ons_raw","ons_series_review","fct_sector_index"]
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","CalcGroup"]
 
 ref table dim_date
 ref table DateTableTemplate_d40577da-d63b-474e-b2b3-1d839b6fcc36
@@ -30,6 +31,7 @@ ref table LocalDateTable_1647003c-4c34-40c9-a969-40b27a230e00
 ref table _Measures
 ref table fct_sector_index
 ref table 'Segment Metric'
+ref table 'Time Comparison'
 
 ref cultureInfo en-US
 

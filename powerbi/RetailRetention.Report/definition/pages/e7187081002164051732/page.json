@@ -73,41 +73,7 @@
             "Property": "month_number"
           }
         },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "d",
-              "Entity": "dim_date",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 3,
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "d"
-                        }
-                      },
-                      "Property": "month_number"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "12L"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
+        "type": "Categorical",
         "howCreated": "User"
       }
     ]

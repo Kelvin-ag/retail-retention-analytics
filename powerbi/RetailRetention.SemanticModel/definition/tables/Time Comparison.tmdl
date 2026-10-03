@@ -1,0 +1,56 @@
+table 'Time Comparison'
+	lineageTag: 5f9ab580-f021-492b-a159-acb8246798dc
+
+	calculationGroup
+
+		calculationItem Current = SELECTEDMEASURE()
+
+		calculationItem 'Prior Year' =
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    SAMEPERIODLASTYEAR(dim_date[date_key])
+				)
+
+		calculationItem 'YoY %' =
+				VAR CurrentValue =
+				    SELECTEDMEASURE()
+				VAR PreviousValue =
+				    CALCULATE(
+				        SELECTEDMEASURE(),
+				        SAMEPERIODLASTYEAR(dim_date[date_key])
+				    )
+				RETURN
+				    IF(
+				        ISBLANK(CurrentValue) || ISBLANK(PreviousValue),
+				        BLANK(),
+				        DIVIDE(CurrentValue - PreviousValue, PreviousValue)
+				    )
+
+			formatStringDefinition = "0.00%;-0.00%;0.00%"
+
+		calculationItem YTD =
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATESYTD(dim_date[date_key])
+				)
+
+			formatStringDefinition = SELECTEDMEASUREFORMATSTRING()
+
+	column Comparison
+		dataType: string
+		lineageTag: d0f07284-f7aa-4ee6-978a-a8441897e19e
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Current
+
+		annotation SummarizationSetBy = Automatic
+
+	column Current
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c97f5f2-ce3e-4e2b-b0d0-3bcf8bf3127b
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
