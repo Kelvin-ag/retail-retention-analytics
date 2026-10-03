@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "32d0fe6c0cb9ac678091",
+  "position": {
+    "x": 0,
+    "y": 208.09756097560975,
+    "z": 4000,
+    "height": 72.4390243902439,
+    "width": 637.46341463414626,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "High-value at risk: customers with no purchase for at least 90 days and previous 12-month product sales at or above the 75th percentile of customers purchasing in that window. Historical sales are before credits; they are not a forecast of revenue lost or recoverable.",
+                    "textStyle": {
+                      "fontSize": "12pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

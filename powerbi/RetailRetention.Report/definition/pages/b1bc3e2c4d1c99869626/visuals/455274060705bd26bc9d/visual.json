@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "455274060705bd26bc9d",
+  "position": {
+    "x": 938.26247689463958,
+    "y": 1028.0961182994456,
+    "z": 13000,
+    "height": 51.903881700554535,
+    "width": 982.18114602587809,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Status is assigned to each purchase order. First-observed means the customer’s first purchase in this dataset; reactivated means at least 90 days since their previous purchase. Sales are before credits.",
+                    "textStyle": {
+                      "fontSize": "12pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

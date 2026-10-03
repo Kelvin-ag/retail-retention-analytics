@@ -1,0 +1,372 @@
+table _Measures
+	lineageTag: 35fc390e-a70a-439f-985f-56880ac58653
+
+	/// Product sales plus signed product credits. Excludes delivery, standalone discounts and non-product adjustments. Includes customers without IDs.
+	measure 'Net Product Revenue' =
+			
+			SUM(fct_order_lines[net_product_revenue])
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		displayFolder: Revenue
+		lineageTag: 29732c9a-078b-49a5-b4a5-e524a3da5bd0
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Paid Orders' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fct_order_lines[invoice_id]),
+			    KEEPFILTERS(fct_order_lines[is_paid_product_sale] = TRUE())
+			)
+		formatString: 0
+		displayFolder: Purchasing
+		lineageTag: 10e88bc2-60a8-436b-b6a3-fb90df47d9a2
+
+	measure 'Active Customers' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fct_order_lines[customer_key]),
+			    KEEPFILTERS(fct_order_lines[is_paid_product_sale] = TRUE()),
+			    KEEPFILTERS(dim_customers[is_unknown] = FALSE())
+			)
+		formatString: 0
+		displayFolder: Purchasing
+		lineageTag: f0435022-1ade-44fc-b3b7-42541f6ece03
+
+	measure 'Identified Revenue' =
+			
+			CALCULATE(
+			    [Net Product Revenue],
+			    KEEPFILTERS(dim_customers[is_unknown] = FALSE())
+			)
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		displayFolder: Revenue
+		lineageTag: bb2e5f4b-4e02-43f0-9970-2ee27d2b5ada
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Unidentified Revenue' =
+			
+			CALCULATE(
+			    [Net Product Revenue],
+			    KEEPFILTERS(dim_customers[is_unknown] = TRUE())
+			)
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		displayFolder: Revenue
+		lineageTag: 09e481dc-0bc4-4fc7-87f8-b03d3ae96210
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Unidentified Revenue Share' =
+			
+			DIVIDE(
+			    [Unidentified Revenue],
+			    [Net Product Revenue]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Revenue
+		lineageTag: b5a6bc12-3604-43c4-8c39-8e9c0c36e8d8
+
+	measure 'Revenue Prior Year' =
+			
+			CALCULATE(
+			    [Net Product Revenue],
+			    SAMEPERIODLASTYEAR(dim_date[date_key])
+			)
+		formatString: "£"#,0.00;-"£"#,0.00;"£"#,0.00
+		displayFolder: Revenue
+		lineageTag: 3bcca836-8bbe-44de-91cf-47eb8f19da87
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Revenue YoY %' =
+			
+			VAR CurrentRevenue = [Net Product Revenue]
+			VAR PreviousRevenue = [Revenue Prior Year]
+			RETURN
+			    IF(
+			        ISBLANK(CurrentRevenue) || ISBLANK(PreviousRevenue),
+			        BLANK(),
+			        DIVIDE(
+			            CurrentRevenue - PreviousRevenue,
+			            PreviousRevenue
+			        )
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Revenue
+		lineageTag: 93e11cd7-06e1-42e9-8ceb-02882b03e009
+
+	measure 'Identified Paid Orders' =
+			
+			CALCULATE(
+			    [Paid Orders],
+			    KEEPFILTERS(dim_customers[is_unknown] = FALSE())
+			)
+		formatString: 0
+		displayFolder: Purchasing
+		lineageTag: 8959464d-b64a-4a0c-8cb3-29a6b92f597c
+
+	measure 'Orders per Active Customer' =
+			
+			DIVIDE(
+			    [Identified Paid Orders],
+			    [Active Customers]
+			)
+		formatString: 0.00
+		displayFolder: Purchasing
+		lineageTag: cad32ef9-2c51-4b6c-97f8-472cfea6afe6
+
+	measure 'Identified Net Revenue per Order' =
+			
+			DIVIDE(
+			    [Identified Revenue],
+			    [Identified Paid Orders]
+			)
+		formatString: "£"#,0.00;-"£"#,0.00;"£"#,0.00
+		displayFolder: Purchasing
+		lineageTag: 57d05a64-f563-4495-842a-293d32fbd8ed
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Snapshot Customers' =
+			
+			DISTINCTCOUNT(fct_customer_snapshot[customer_key])
+		formatString: 0
+		displayFolder: Customer Snapshot
+		lineageTag: 152e94c1-e436-48ee-9472-fa8ac62b07ed
+
+	/// Identified customers’ product sales before credits from 1 December 2010 to 30 November 2011, for the snapshot dated 1 December 2011.
+	measure 'Snapshot Historical Sales' =
+			
+			SUM(fct_customer_snapshot[monetary_sales_12m])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Customer Snapshot
+		lineageTag: 256d2596-0580-4ed1-883f-1d43176a0db5
+
+	measure 'Cohort Retention %' =
+			
+			IF(
+			    ISINSCOPE(fct_cohort_retention[cohort_month])
+			        && ISINSCOPE(fct_cohort_retention[month_number]),
+			    DIVIDE(
+			        SUM(fct_cohort_retention[purchasing_customers]),
+			        SUM(fct_cohort_retention[cohort_size])
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Retention
+		lineageTag: 3d0fd53d-2866-4bef-839f-4f6781fa65b4
+
+	measure 'Revenue Change vs Prior Year' =
+			
+			[Net Product Revenue] - [Revenue Prior Year]
+		formatString: "£"#,0.00;-"£"#,0.00;"£"#,0.00
+		displayFolder: Revenue
+		lineageTag: 59b4dfad-21cc-4c90-a70d-846b550874d4
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Cohort Customers' =
+			
+			SUMX(
+			    VALUES(fct_cohort_retention[cohort_month]),
+			    CALCULATE(
+			        MAX(fct_cohort_retention[cohort_size])
+			    )
+			)
+		formatString: 0
+		displayFolder: Retention
+		lineageTag: 346f4256-a5a7-4d54-aee1-1b79c5ecc337
+
+	measure 'Month 1 Retention %' =
+			
+			CALCULATE(
+			    DIVIDE(
+			        SUM(fct_cohort_retention[purchasing_customers]),
+			        SUM(fct_cohort_retention[cohort_size])
+			    ),
+			    fct_cohort_retention[month_number] = 1
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Retention
+		lineageTag: d6f9bd73-5ab3-4dc5-844c-a4501e92f97a
+
+	measure 'High-Value At-Risk Customers' =
+			
+			CALCULATE(
+			    [Snapshot Customers],
+			    KEEPFILTERS(
+			        fct_customer_snapshot[customer_segment] = "High-value at risk"
+			    )
+			)
+		formatString: 0
+		displayFolder: Customer Snapshot
+		lineageTag: 14c09d42-c83f-42f3-87ec-f8a5f71a4d6b
+
+	measure 'High-Value At-Risk Historical Sales' =
+			
+			CALCULATE(
+			    [Snapshot Historical Sales],
+			    KEEPFILTERS(
+			        fct_customer_snapshot[customer_segment] = "High-value at risk"
+			    )
+			)
+		formatString: "£"#,0.00;-"£"#,0.00;"£"#,0.00
+		displayFolder: Customer Snapshot
+		lineageTag: 802e4b66-0e50-4e67-9014-a842aee98abf
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Snapshot Customer Share' =
+			
+			DIVIDE(
+			    [Snapshot Customers],
+			    CALCULATE(
+			        [Snapshot Customers],
+			        REMOVEFILTERS(fct_customer_snapshot[customer_segment])
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Customer Snapshot
+		lineageTag: 3cc2bf71-a2c5-4ffe-862e-45e709e8108e
+
+	measure 'Snapshot Sales Share' =
+			
+			DIVIDE(
+			    [Snapshot Historical Sales],
+			    CALCULATE(
+			        [Snapshot Historical Sales],
+			        REMOVEFILTERS(fct_customer_snapshot[customer_segment])
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Customer Snapshot
+		lineageTag: 2a5ac62c-0eed-401e-b1c2-115ec9b3e7cd
+
+	measure 'Customer Detail Title' =
+			
+			VAR Segment =
+			    SELECTEDVALUE(fct_customer_snapshot[customer_segment])
+			RETURN
+			    IF(
+			        ISBLANK(Segment),
+			        "Customer Detail - All segments",
+			        "Customer Detail - " & Segment
+			    )
+		displayFolder: Report Labels
+		lineageTag: 5a8ee0ed-8c0b-4dbc-b6f1-4a0d2f9cee30
+
+	measure 'Sector Index' =
+			
+			AVERAGE(fct_sector_index[index_value])
+		formatString: 0.0
+		displayFolder: Sector Benchmark
+		lineageTag: 3146a7f3-5908-4def-8c0c-5d317bb2068d
+
+	measure 'Sector Index Prior Year' =
+			
+			CALCULATE(
+			    [Sector Index],
+			    SAMEPERIODLASTYEAR(dim_date[date_key])
+			)
+		formatString: 0.0
+		displayFolder: Sector Benchmark
+		lineageTag: 695c3189-9ceb-4edb-9e04-f2e41aadb933
+
+	measure 'Sector Index YoY %' =
+			
+			VAR CurrentIndex = [Sector Index]
+			VAR PreviousIndex = [Sector Index Prior Year]
+			RETURN
+			    IF(
+			        ISBLANK(CurrentIndex) || ISBLANK(PreviousIndex),
+			        BLANK(),
+			        DIVIDE(CurrentIndex - PreviousIndex, PreviousIndex)
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sector Benchmark
+		lineageTag: c481fdfd-496f-4b04-bd09-7b4d24ba5411
+
+	measure 'Growth Gap (pp)' =
+			
+			VAR RetailerGrowth = [Revenue YoY %]
+			VAR SectorGrowth = [Sector Index YoY %]
+			RETURN
+			    IF(
+			        ISBLANK(RetailerGrowth) || ISBLANK(SectorGrowth),
+			        BLANK(),
+			        (RetailerGrowth - SectorGrowth) * 100
+			    )
+		formatString: 0.00
+		displayFolder: Sector Benchmark
+		lineageTag: 09d5d6c7-6af9-46df-94a5-b8aa70516c28
+
+	/// Value of eligible positive product sales before credits. Includes customers without IDs.
+	measure 'Product Sales' =
+			
+			CALCULATE(
+			    [Net Product Revenue],
+			    KEEPFILTERS(fct_order_lines[is_paid_product_sale] = TRUE())
+			)
+		formatString: "£"#,0.00;-"£"#,0.00;"£"#,0.00
+		displayFolder: Products
+		lineageTag: 4a40596a-46df-401c-81ef-3d93bee1a5db
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Products With Sales' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fct_order_lines[product_key]),
+			    KEEPFILTERS(fct_order_lines[is_paid_product_sale] = TRUE())
+			)
+		formatString: 0
+		displayFolder: Products
+		lineageTag: dc9ca7b8-d276-4395-b2fc-6712a4ffd8d6
+
+	measure 'Top 10 Product Sales Share' =
+			
+			VAR ProductSalesTable =
+			    CALCULATETABLE(
+			        ADDCOLUMNS(
+			            VALUES(dim_products[product_key]),
+			            "@Sales", [Product Sales]
+			        ),
+			        REMOVEFILTERS(dim_products)
+			    )
+			VAR TopProducts =
+			    TOPN(
+			        10,
+			        ProductSalesTable,
+			        [@Sales], DESC,
+			        dim_products[product_key], ASC
+			    )
+			VAR AllProductSales =
+			    CALCULATE(
+			        [Product Sales],
+			        REMOVEFILTERS(dim_products)
+			    )
+			RETURN
+			    DIVIDE(
+			        SUMX(TopProducts, [@Sales]),
+			        AllProductSales
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Products
+		lineageTag: b40d2d24-4086-4a4c-bde0-d57bc7a5a380
+
+	column Placeholder
+		isHidden
+		formatString: 0
+		lineageTag: eda0e8da-8206-4566-b4e3-2cfcd52f7bb3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Placeholder]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = DATATABLE("Placeholder", INTEGER, {{0}})
+
+	annotation PBI_Id = ca8ce76f64ba4520879b2dddfc560956
+

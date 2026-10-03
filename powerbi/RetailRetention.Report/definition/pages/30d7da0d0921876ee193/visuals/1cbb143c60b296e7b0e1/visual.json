@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "1cbb143c60b296e7b0e1",
+  "position": {
+    "x": 1261.7560975609756,
+    "y": 57.951219512195117,
+    "z": 3000,
+    "height": 150.14634146341461,
+    "width": 658.53658536585363,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "High-Value At-Risk Historical Sales"
+                }
+              },
+              "queryRef": "_Measures.High-Value At-Risk Historical Sales",
+              "nativeQueryRef": "High-Value At-Risk Historical Sales",
+              "format": "\"£\"#,0.###############;-\"£\"#,0.###############;\"£\"#,0.###############"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "High-Value At-Risk Historical Sales"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "value": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.High-Value At-Risk Historical Sales"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

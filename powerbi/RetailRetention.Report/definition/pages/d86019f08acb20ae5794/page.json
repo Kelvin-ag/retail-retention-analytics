@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "d86019f08acb20ae5794",
+  "displayName": "Revenue Tooltip",
+  "displayOption": "ActualSize",
+  "height": 300,
+  "width": 400,
+  "visibility": "HiddenInViewMode",
+  "type": "Tooltip"
+}

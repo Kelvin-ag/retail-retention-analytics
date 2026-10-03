@@ -1,0 +1,52 @@
+table dim_products
+	lineageTag: efff6b8a-c040-4c34-a01c-e75586ec1f38
+
+	column product_key
+		dataType: string
+		isHidden
+		lineageTag: df94e256-0e7f-48f5-94a3-1bef2058da3e
+		summarizeBy: none
+		sourceColumn: product_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column stock_code
+		dataType: string
+		lineageTag: c2bf8076-a6d8-4b0c-8e14-f68f40ef7318
+		summarizeBy: none
+		sourceColumn: stock_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_description
+		dataType: string
+		lineageTag: 9f96bfd3-6f3b-4999-b939-3a030f513a3d
+		summarizeBy: none
+		sourceColumn: product_description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_products = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(
+				        File.Contents(SourcePath & "\dim_products.parquet")
+				    ),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"product_key", type text},
+				            {"stock_code", type text},
+				            {"product_description", type text}
+				        }
+				    )
+				in
+				    Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

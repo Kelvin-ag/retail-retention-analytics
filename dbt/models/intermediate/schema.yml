@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: int_customer_first_purchase
+    description: First observed paid purchase and cohort month for each identified purchasing customer.
+
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: first_observed_purchase_date
+        data_tests:
+          - not_null
+
+      - name: cohort_month
+        data_tests:
+          - not_null
+
+  - name: int_customer_rfm
+    description: Customer purchase metrics at the configured snapshot.
+
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: recency_days
+        data_tests:
+          - not_null
+
+      - name: frequency_12m
+        data_tests:
+          - not_null
+
+      - name: monetary_sales_12m
+        data_tests:
+          - not_null
+
+  - name: int_customer_segments
+    description: Customer segments at the configured RFM snapshot.
+
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: high_value_cutoff
+        data_tests:
+          - not_null
+
+      - name: customer_segment
+        data_tests:
+          - not_null

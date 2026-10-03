@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: retail_raw
+    database: retail
+    schema: main
+    tables:
+      - name: raw_retail_2009_2010
+      - name: raw_retail_2010_2011

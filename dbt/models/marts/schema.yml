@@ -1,0 +1,126 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: Daily calendar covering complete years 2009–2011.
+
+    columns:
+      - name: date_key
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_customers
+    description: Customers on qualifying product transactions, plus an Unknown member.
+
+    columns:
+      - name: customer_key
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        data_tests:
+          - unique
+
+      - name: is_unknown
+        data_tests:
+          - not_null
+
+  - name: dim_products
+    description: Product codes on qualifying transactions with a representative description.
+
+    columns:
+      - name: product_key
+        data_tests:
+          - unique
+          - not_null
+
+      - name: stock_code
+        data_tests:
+          - unique
+          - not_null
+
+      - name: product_description
+        data_tests:
+          - not_null
+
+  - name: fct_order_lines
+    description: Qualifying product sale and credit lines, with repeated source lines retained.
+
+    columns:
+      - name: invoice_id
+        data_tests:
+          - not_null
+
+      - name: date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_key
+
+      - name: product_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_key
+
+      - name: net_product_revenue
+        data_tests:
+          - not_null
+
+  - name: fct_customer_snapshot
+    description: Customer purchase metrics and segments at the configured snapshot.
+
+    columns:
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_key
+
+      - name: snapshot_date
+        data_tests:
+          - not_null
+
+      - name: customer_segment
+        data_tests:
+          - not_null
+
+  - name: fct_cohort_retention
+    description: Monthly purchasing counts for first-observed cohorts, through November 2011.
+
+    columns:
+      - name: cohort_month
+        data_tests:
+          - not_null
+
+      - name: activity_month
+        data_tests:
+          - not_null
+
+      - name: month_number
+        data_tests:
+          - not_null
+
+      - name: cohort_size
+        data_tests:
+          - not_null
+
+      - name: purchasing_customers
+        data_tests:
+          - not_null

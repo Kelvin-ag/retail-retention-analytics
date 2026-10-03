@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "65a6a7b17a4959010517",
+  "position": {
+    "x": 894.59854014598545,
+    "y": 282.62773722627736,
+    "z": 3000,
+    "height": 425.1094890510949,
+    "width": 875.91240875912411,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_date"
+                    }
+                  },
+                  "Property": "year_month"
+                }
+              },
+              "queryRef": "dim_date.year_month",
+              "nativeQueryRef": "year_month"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Sector Index"
+                }
+              },
+              "queryRef": "_Measures.Sector Index",
+              "nativeQueryRef": "Sector Index"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Sector Index Prior Year"
+                }
+              },
+              "queryRef": "_Measures.Sector Index Prior Year",
+              "nativeQueryRef": "Sector Index Prior Year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Sector Index YoY %"
+                }
+              },
+              "queryRef": "_Measures.Sector Index YoY %",
+              "nativeQueryRef": "Sector Index YoY %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

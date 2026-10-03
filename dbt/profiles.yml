@@ -1,0 +1,8 @@
+retail_retention:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('RETAIL_DUCKDB_PATH') }}"
+      schema: analytics
+      threads: 2

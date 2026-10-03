@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "RetailRetention"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8294a200-9e6f-4113-a8d3-bb4084489999"
+  }
+}

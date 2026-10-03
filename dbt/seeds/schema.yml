@@ -1,0 +1,13 @@
+version: 2
+
+seeds:
+  - name: stock_code_rules
+    columns:
+      - name: stock_code
+        data_tests:
+          - unique
+          - not_null
+
+      - name: transaction_category
+        data_tests:
+          - not_null

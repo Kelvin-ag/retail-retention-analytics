@@ -1,0 +1,17 @@
+stock_code,transaction_category
+ADJUST,financial_adjustment
+ADJUST2,financial_adjustment
+AMAZONFEE,financial_charge
+B,bad_debt_adjustment
+BANK CHARGES,financial_charge
+C2,delivery
+C3,unresolved
+CRUK,financial_charge
+D,discount
+DOT,delivery
+GIFT,unresolved
+M,manual_adjustment
+POST,delivery
+S,sample
+TEST001,test_record
+TEST002,test_record

@@ -1,0 +1,88 @@
+table fct_cohort_retention
+	lineageTag: 5fe5d8c9-4ab3-4a06-bdcb-405cbe8f6a1f
+
+	column cohort_month
+		dataType: dateTime
+		formatString: mmmm yyyy
+		lineageTag: e8131c42-ee77-4072-ba79-3f116ec5e240
+		summarizeBy: none
+		sourceColumn: cohort_month
+
+		variation Variation
+			isDefault
+			relationship: 270f31ab-d581-40de-b478-acc918488688
+			defaultHierarchy: LocalDateTable_b38be48c-91b7-4b45-bec3-059c774be83e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column activity_month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bd836311-f59e-48ce-b9e7-bcd7e2071f62
+		summarizeBy: none
+		sourceColumn: activity_month
+
+		variation Variation
+			isDefault
+			relationship: ffb5ae71-6614-4430-b4a5-aae501178c28
+			defaultHierarchy: LocalDateTable_1647003c-4c34-40c9-a969-40b27a230e00.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column month_number
+		dataType: int64
+		formatString: 0
+		lineageTag: c8ecf37a-370d-45eb-845e-d5798a50e572
+		summarizeBy: sum
+		sourceColumn: month_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_size
+		dataType: int64
+		formatString: 0
+		lineageTag: c245c1bd-ed09-4c4a-8bee-777bc6ec935a
+		summarizeBy: sum
+		sourceColumn: cohort_size
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchasing_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c9f0064-9b5d-4f1e-83c4-b7b252e6f008
+		summarizeBy: sum
+		sourceColumn: purchasing_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_cohort_retention = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(
+				        File.Contents(SourcePath & "\fct_cohort_retention.parquet")
+				    ),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"cohort_month", type date},
+				            {"activity_month", type date},
+				            {"month_number", Int64.Type},
+				            {"cohort_size", Int64.Type},
+				            {"purchasing_customers", Int64.Type}
+				        }
+				    )
+				in
+				    Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

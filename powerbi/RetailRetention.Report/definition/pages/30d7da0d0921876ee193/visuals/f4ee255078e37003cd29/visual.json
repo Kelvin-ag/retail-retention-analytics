@@ -1,0 +1,95 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "f4ee255078e37003cd29",
+  "position": {
+    "x": 960.22181146025889,
+    "y": 439.18669131238448,
+    "z": 6000,
+    "height": 529.0203327171904,
+    "width": 960.22181146025889,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_customer_snapshot"
+                    }
+                  },
+                  "Property": "customer_segment"
+                }
+              },
+              "queryRef": "fct_customer_snapshot.customer_segment",
+              "nativeQueryRef": "customer_segment"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Snapshot Customers"
+                }
+              },
+              "queryRef": "_Measures.Snapshot Customers",
+              "nativeQueryRef": "Snapshot Customers"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Snapshot Customer Share"
+                }
+              },
+              "queryRef": "_Measures.Snapshot Customer Share",
+              "nativeQueryRef": "Snapshot Customer Share"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Snapshot Sales Share"
+                }
+              },
+              "queryRef": "_Measures.Snapshot Sales Share",
+              "nativeQueryRef": "Snapshot Sales Share"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Customer share versus historical sales share'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

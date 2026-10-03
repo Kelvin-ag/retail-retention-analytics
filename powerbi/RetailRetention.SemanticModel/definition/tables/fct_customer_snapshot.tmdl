@@ -1,0 +1,148 @@
+table fct_customer_snapshot
+	lineageTag: 47b717ed-7bfb-4fbf-b034-58e46a581df0
+
+	column customer_key
+		dataType: string
+		isHidden
+		lineageTag: 8bfee453-a869-49de-b572-d63651105d53
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshot_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4f4c22e5-ca2f-4c16-bbba-a74039e3ea24
+		summarizeBy: none
+		sourceColumn: snapshot_date
+
+		variation Variation
+			isDefault
+			relationship: 0020fc03-afc2-464c-80d6-cb2573d86685
+			defaultHierarchy: LocalDateTable_5aa42749-c7bc-478e-922a-2f19fd14b3d6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column window_start
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 820d0c35-c59e-4786-bf44-73fffdad9439
+		summarizeBy: none
+		sourceColumn: window_start
+
+		variation Variation
+			isDefault
+			relationship: 29fd43b7-c034-4b93-8abd-d0c4d3de527b
+			defaultHierarchy: LocalDateTable_6fe14051-fb92-4a82-b3b9-170f1ec5e9c6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column last_purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3e2c780a-bbe5-4e4a-9f22-2ae91b8e24f3
+		summarizeBy: none
+		sourceColumn: last_purchase_date
+
+		variation Variation
+			isDefault
+			relationship: 897f3173-c738-4247-99b2-0f6497fea145
+			defaultHierarchy: LocalDateTable_434ae530-5f4e-4a12-b040-04307fcd30af.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column recency_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 26020f06-1fc1-4256-b14f-6bba8dc8f642
+		summarizeBy: sum
+		sourceColumn: recency_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column observed_tenure_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 2945ad85-7d4c-426f-8859-677d76e8bef4
+		summarizeBy: sum
+		sourceColumn: observed_tenure_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column frequency_12m
+		dataType: int64
+		formatString: 0
+		lineageTag: cafec621-bc98-445d-9a2d-03ffd26bdc2c
+		summarizeBy: sum
+		sourceColumn: frequency_12m
+
+		annotation SummarizationSetBy = Automatic
+
+	column monetary_sales_12m
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 77073b3e-db96-4999-8cd8-481559322601
+		summarizeBy: sum
+		sourceColumn: monetary_sales_12m
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column high_value_cutoff
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: d8a90ae5-c0ad-4716-b244-337a4e53bf4d
+		summarizeBy: sum
+		sourceColumn: high_value_cutoff
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column customer_segment
+		dataType: string
+		lineageTag: 2af8ca16-a9d0-49b9-b5e7-dcf6fcb3f573
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_customer_snapshot = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(
+				        File.Contents(SourcePath & "\fct_customer_snapshot.parquet")
+				    ),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"customer_key", type text},
+				            {"snapshot_date", type date},
+				            {"window_start", type date},
+				            {"last_purchase_date", type date},
+				            {"recency_days", Int64.Type},
+				            {"observed_tenure_days", Int64.Type},
+				            {"frequency_12m", Int64.Type},
+				            {"monetary_sales_12m", Currency.Type},
+				            {"high_value_cutoff", Currency.Type},
+				            {"customer_segment", type text}
+				        }
+				    )
+				in
+				    Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,48 @@
+table 'Segment Metric'
+	lineageTag: 23da499c-8dbd-45c5-87af-2f5e9c77db48
+
+	column 'Segment Metric'
+		lineageTag: 9ebc0dd6-bac1-4353-8a47-8eac5bc20fbb
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Segment Metric Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Segment Metric Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment Metric Fields'
+		isHidden
+		lineageTag: 02b30eb4-09f5-4041-b613-279d59b13a75
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Segment Metric Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment Metric Order'
+		isHidden
+		formatString: 0
+		lineageTag: 46d96ed6-d647-419a-9580-7d8511671145
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Segment Metric' = calculated
+		mode: import
+		source =
+				{
+				    ("Snapshot Historical Sales", NAMEOF('_Measures'[Snapshot Historical Sales]), 0),
+				    ("Snapshot Customers", NAMEOF('_Measures'[Snapshot Customers]), 1)
+				}
+
+	annotation PBI_Id = 763bde9ff55f4eaa8e36314d33514797
+

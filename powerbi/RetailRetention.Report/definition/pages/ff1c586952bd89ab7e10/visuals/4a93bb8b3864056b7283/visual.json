@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "4a93bb8b3864056b7283",
+  "position": {
+    "x": 0,
+    "y": 998.1515711645103,
+    "z": 2000,
+    "height": 81.8957345971564,
+    "width": 907.67772511848341,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Contextual benchmark: retailer revenue includes all customer countries; ONS covers Great Britain’s non-store retail sector. Product mix and revenue definitions differ. Both series are not seasonally adjusted. ONS series J596, release 21 August 2026.",
+                    "textStyle": {
+                      "fontSize": "12pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

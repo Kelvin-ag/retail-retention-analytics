@@ -1,0 +1,111 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "1e0806f09ae3bda8379d",
+  "position": {
+    "x": 0,
+    "y": 102.73170731707316,
+    "z": 1000,
+    "height": 499.17073170731703,
+    "width": 870.58536585365846,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_customers"
+                    }
+                  },
+                  "Property": "customer_id"
+                }
+              },
+              "queryRef": "dim_customers.customer_id",
+              "nativeQueryRef": "customer_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_customer_snapshot"
+                    }
+                  },
+                  "Property": "last_purchase_date"
+                }
+              },
+              "queryRef": "fct_customer_snapshot.last_purchase_date",
+              "nativeQueryRef": "last_purchase_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_customer_snapshot"
+                    }
+                  },
+                  "Property": "recency_days"
+                }
+              },
+              "queryRef": "Sum(fct_customer_snapshot.recency_days)",
+              "nativeQueryRef": "recency_days"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_customer_snapshot"
+                    }
+                  },
+                  "Property": "frequency_12m"
+                }
+              },
+              "queryRef": "Sum(fct_customer_snapshot.frequency_12m)",
+              "nativeQueryRef": "frequency_12m"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fct_customer_snapshot"
+                    }
+                  },
+                  "Property": "monetary_sales_12m"
+                }
+              },
+              "queryRef": "Sum(fct_customer_snapshot.monetary_sales_12m)",
+              "nativeQueryRef": "monetary_sales_12m"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fct_customer_snapshot"
+                  }
+                },
+                "Property": "monetary_sales_12m"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,56 @@
+relationship 08a47e7f-5d90-4969-ae44-df3a5cdddcc1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_customers.first_observed_purchase_date
+	toColumn: LocalDateTable_4bdf63af-55eb-4f6a-935a-232f1f15021e.Date
+
+relationship 55de8f82-ed9d-478c-9d51-d071aba4b5fe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_customers.cohort_month
+	toColumn: LocalDateTable_122d5ee0-f05f-4ca5-94cd-d602a58e6fba.Date
+
+relationship 0020fc03-afc2-464c-80d6-cb2573d86685
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fct_customer_snapshot.snapshot_date
+	toColumn: LocalDateTable_5aa42749-c7bc-478e-922a-2f19fd14b3d6.Date
+
+relationship 29fd43b7-c034-4b93-8abd-d0c4d3de527b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fct_customer_snapshot.window_start
+	toColumn: LocalDateTable_6fe14051-fb92-4a82-b3b9-170f1ec5e9c6.Date
+
+relationship 897f3173-c738-4247-99b2-0f6497fea145
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fct_customer_snapshot.last_purchase_date
+	toColumn: LocalDateTable_434ae530-5f4e-4a12-b040-04307fcd30af.Date
+
+relationship 270f31ab-d581-40de-b478-acc918488688
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fct_cohort_retention.cohort_month
+	toColumn: LocalDateTable_b38be48c-91b7-4b45-bec3-059c774be83e.Date
+
+relationship ffb5ae71-6614-4430-b4a5-aae501178c28
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fct_cohort_retention.activity_month
+	toColumn: LocalDateTable_1647003c-4c34-40c9-a969-40b27a230e00.Date
+
+relationship AutoDetected_412b3e07-8149-4f5b-84da-1f45229e4d05
+	fromColumn: fct_order_lines.customer_key
+	toColumn: dim_customers.customer_key
+
+relationship AutoDetected_78976357-fff1-4f3e-9573-7fcfbcdda16b
+	crossFilteringBehavior: bothDirections
+	fromColumn: fct_customer_snapshot.customer_key
+	toColumn: dim_customers.customer_key
+
+relationship AutoDetected_0d8b772d-6521-458e-9421-bd29c94d85ab
+	fromColumn: fct_order_lines.product_key
+	toColumn: dim_products.product_key
+
+relationship a5aae077-2e36-e427-c7be-7455e13a2412
+	fromColumn: fct_order_lines.date_key
+	toColumn: dim_date.date_key
+
+relationship 5a46691d-6207-678e-4da5-3a7775b51d01
+	fromColumn: fct_sector_index.date_key
+	toColumn: dim_date.date_key
+

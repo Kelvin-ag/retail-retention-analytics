@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "583487571810b2c5241c",
+  "position": {
+    "x": 0,
+    "y": 826.46950092421446,
+    "z": 5000,
+    "height": 45.914972273567471,
+    "width": 866.39556377079487,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "The top ten products contribute 8.48% of product sales. Across the wider range, 818 of 3,812 products (21.46%) generate 80% of sales. Dependence is spread across hundreds of products rather than a handful of bestsellers.",
+                    "textStyle": {
+                      "fontSize": "12pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

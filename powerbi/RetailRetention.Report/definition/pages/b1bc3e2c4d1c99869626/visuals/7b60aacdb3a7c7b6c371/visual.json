@@ -1,0 +1,107 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "7b60aacdb3a7c7b6c371",
+  "position": {
+    "x": 0,
+    "y": 738.63216266173754,
+    "z": 6000,
+    "height": 341.36783733826252,
+    "width": 938.26247689463958,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_customers"
+                    }
+                  },
+                  "Property": "Customer ID Status"
+                }
+              },
+              "queryRef": "dim_customers.Customer ID Status",
+              "nativeQueryRef": "Customer ID Status",
+              "active": true
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Product Revenue"
+                }
+              },
+              "queryRef": "_Measures.Net Product Revenue",
+              "nativeQueryRef": "Net Product Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Revenue Prior Year"
+                }
+              },
+              "queryRef": "_Measures.Revenue Prior Year",
+              "nativeQueryRef": "Revenue Prior Year"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Revenue Change vs Prior Year"
+                }
+              },
+              "queryRef": "_Measures.Revenue Change vs Prior Year",
+              "nativeQueryRef": "Revenue Change vs Prior Year"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Revenue Change vs Prior Year"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

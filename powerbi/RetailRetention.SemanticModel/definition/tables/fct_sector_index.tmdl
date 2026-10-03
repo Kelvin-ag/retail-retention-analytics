@@ -1,0 +1,104 @@
+table fct_sector_index
+	lineageTag: dff0424b-a5ba-4af8-ac3d-7f247d9af7b6
+
+	column date_key
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 323a8683-b07f-4ec6-9f8e-3582a944ec2f
+		summarizeBy: none
+		sourceColumn: date_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column series_code
+		dataType: string
+		lineageTag: d6f90f96-d665-4842-98f2-739e22c2b474
+		summarizeBy: none
+		sourceColumn: series_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column index_value
+		dataType: double
+		lineageTag: f4aa522e-1e92-48f4-9473-73ce524bd770
+		summarizeBy: sum
+		sourceColumn: index_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fct_sector_index = m
+		mode: import
+		source =
+				let
+				    // Remove the title row, then use the series codes as headers
+				    CodeHeaders = Table.PromoteHeaders(
+				        Table.Skip(stg_ons_raw, 1),
+				        [PromoteAllScalars = true]
+				    ),
+				
+				    SelectedSeries = Table.SelectColumns(
+				        CodeHeaders,
+				        {"CDID", "J596"}
+				    ),
+				
+				    Renamed = Table.RenameColumns(
+				        SelectedSeries,
+				        {{"CDID", "period"}}
+				    ),
+				
+				    // Monthly labels such as "2010 JAN" become dates.
+				    // Metadata, annual and quarterly labels return null.
+				    AddedDate = Table.AddColumn(
+				        Renamed,
+				        "date_key",
+				        each try Date.FromText(
+				            Text.Trim([period]) & " 01",
+				            [Format = "yyyy MMM dd", Culture = "en-GB"]
+				        ) otherwise null,
+				        type date
+				    ),
+				
+				    MonthlyWindow = Table.SelectRows(
+				        AddedDate,
+				        each [date_key] <> null
+				            and [date_key] >= #date(2009, 12, 1)
+				            and [date_key] <= #date(2011, 11, 1)
+				    ),
+				
+				    RemovedPeriod = Table.RemoveColumns(
+				        MonthlyWindow,
+				        {"period"}
+				    ),
+				
+				    Unpivoted = Table.UnpivotOtherColumns(
+				        RemovedPeriod,
+				        {"date_key"},
+				        "series_code",
+				        "index_value"
+				    ),
+				
+				    Typed = Table.TransformColumnTypes(
+				        Unpivoted,
+				        {
+				            {"date_key", type date},
+				            {"series_code", type text},
+				            {"index_value", type number}
+				        },
+				        "en-GB"
+				    ),
+				
+				    Sorted = Table.Sort(Typed, {{"date_key", Order.Ascending}})
+				in
+				    Sorted
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

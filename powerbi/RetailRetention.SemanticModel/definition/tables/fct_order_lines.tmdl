@@ -1,0 +1,138 @@
+table fct_order_lines
+	lineageTag: 0fdfcb0b-8d25-4f14-beb2-ff718940aa66
+
+	column invoice_id
+		dataType: string
+		lineageTag: 14c359f2-51c9-4287-a6f8-c2cdc40cb8c0
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 7ee772c3-1d68-4ac7-a2cb-0428fcc6f117
+		summarizeBy: none
+		sourceColumn: date_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column customer_key
+		dataType: string
+		isHidden
+		lineageTag: 4628db48-0334-462b-948e-d051f5f95157
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: string
+		isHidden
+		lineageTag: 07dfb775-4b5a-4fe7-adb3-3c9f866ee3b5
+		summarizeBy: none
+		sourceColumn: product_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 2876977c-1211-4303-80b1-9fba362dd015
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: fc576b6c-16bb-4c7f-95e2-26537df7bb07
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: b72fff6c-0e16-4f14-b158-bc57b442886c
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column is_paid_product_sale
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7688dd9a-9e47-449c-903b-1ef6e2a6155f
+		summarizeBy: none
+		sourceColumn: is_paid_product_sale
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_product_credit
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: df2099e3-4ebc-4e66-8620-fefff86faf61
+		summarizeBy: none
+		sourceColumn: is_product_credit
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_product_revenue
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 8384af3a-8e4d-45c0-acb0-dcba8d0ef940
+		summarizeBy: sum
+		sourceColumn: net_product_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column source_sheet
+		dataType: string
+		isHidden
+		lineageTag: 279e257a-b5d5-4d94-99ea-6c24c2f2ebc3
+		summarizeBy: none
+		sourceColumn: source_sheet
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_customer_status
+		dataType: string
+		lineageTag: c899cbe6-871f-4502-b896-e2ccf2b35bff
+		summarizeBy: none
+		sourceColumn: order_customer_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fct_order_lines = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(
+				        File.Contents(SourcePath & "\fct_order_lines.parquet")
+				    ),
+				    Typed = Table.TransformColumnTypes(Source,{{"invoice_id", type text}, {"date_key", type date}, {"customer_key", type text}, {"product_key", type text}, {"country", type text}, {"quantity", Int64.Type}, {"unit_price", Currency.Type}, {"is_paid_product_sale", type logical}, {"is_product_credit", type logical}, {"net_product_revenue", Currency.Type}, {"source_sheet", type text}, {"order_customer_status", type text}})
+				in
+				    Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

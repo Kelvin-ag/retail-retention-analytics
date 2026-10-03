@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "18c769cbebd919034466",
+  "displayName": "Customer Retention",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "visualInteractions": [
+    {
+      "source": "077ff316d84bb672b659",
+      "target": "fcea9af419a42d026656",
+      "type": "NoFilter"
+    },
+    {
+      "source": "077ff316d84bb672b659",
+      "target": "535d3d91091737080a00",
+      "type": "NoFilter"
+    },
+    {
+      "source": "fcea9af419a42d026656",
+      "target": "077ff316d84bb672b659",
+      "type": "NoFilter"
+    },
+    {
+      "source": "fcea9af419a42d026656",
+      "target": "c80b744940ae53909872",
+      "type": "NoFilter"
+    },
+    {
+      "source": "535d3d91091737080a00",
+      "target": "fcea9af419a42d026656",
+      "type": "NoFilter"
+    },
+    {
+      "source": "535d3d91091737080a00",
+      "target": "077ff316d84bb672b659",
+      "type": "NoFilter"
+    },
+    {
+      "source": "535d3d91091737080a00",
+      "target": "c80b744940ae53909872",
+      "type": "NoFilter"
+    }
+  ]
+}

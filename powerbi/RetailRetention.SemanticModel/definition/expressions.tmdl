@@ -1,0 +1,60 @@
+/// Folder containing Parquet files
+expression SourcePath = "C:\Users\Kelvin\Desktop\retail-retention-analystics\data\exports" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f579e7c4-ee71-48c8-b65b-97f1ea72c6b3
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression RawSourcePath = "C:\Users\Kelvin\Desktop\retail-retention-analystics\data\raw" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 7291ffff-96fc-45a1-bbfc-5ff74add8bb9
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression stg_ons_raw =
+		let
+		    Source = Csv.Document(
+		        File.Contents(RawSourcePath & "\drsi.csv"),
+		        [
+		            Delimiter = ",",
+		            Encoding = 65001,
+		            QuoteStyle = QuoteStyle.Csv
+		        ]
+		    )
+		in
+		    Source
+	lineageTag: 65745e4c-76e0-4c71-8ed8-eeeb3e81a1ce
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression ons_series_review =
+		let
+		    MetadataRows = Table.FirstN(stg_ons_raw, 2),
+		    Transposed = Table.Transpose(MetadataRows),
+		    Renamed = Table.RenameColumns(
+		        Transposed,
+		        {
+		            {"Column1", "series_name"},
+		            {"Column2", "series_code"}
+		        }
+		    ),
+		    NonStoreSeries = Table.SelectRows(
+		        Renamed,
+		        each Text.Contains(
+		            [series_name],
+		            "Non-store",
+		            Comparer.OrdinalIgnoreCase
+		        )
+		    )
+		in
+		    NonStoreSeries
+	lineageTag: b934f07c-76ad-4f5b-8865-1ce6fa230680
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

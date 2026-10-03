@@ -1,0 +1,100 @@
+table dim_customers
+	lineageTag: 196f9808-a76d-464e-ba36-ef3f837ae24b
+
+	column customer_key
+		dataType: string
+		isHidden
+		lineageTag: 9c243560-f982-4456-aad7-c24940bf2432
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 39b283a5-0093-47c3-bf27-6ea05cf3cad3
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_unknown
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f088b4b5-0f85-4025-acb3-f98d53d23012
+		summarizeBy: none
+		sourceColumn: is_unknown
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_observed_purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5a50484b-d526-4f2b-b387-0d1abeaf0d02
+		summarizeBy: none
+		sourceColumn: first_observed_purchase_date
+
+		variation Variation
+			isDefault
+			relationship: 08a47e7f-5d90-4969-ae44-df3a5cdddcc1
+			defaultHierarchy: LocalDateTable_4bdf63af-55eb-4f6a-935a-232f1f15021e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column cohort_month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2e0b9ec4-9668-4358-8139-4dd263999832
+		summarizeBy: none
+		sourceColumn: cohort_month
+
+		variation Variation
+			isDefault
+			relationship: 55de8f82-ed9d-478c-9d51-d071aba4b5fe
+			defaultHierarchy: LocalDateTable_122d5ee0-f05f-4ca5-94cd-d602a58e6fba.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Customer ID Status' =
+			
+			IF(
+			    dim_customers[is_unknown],
+			    "Unidentified",
+			    "Identified"
+			)
+		lineageTag: 674628c6-cfc8-4a37-865a-edf6a17cce56
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customers = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(
+				        File.Contents(SourcePath & "\dim_customers.parquet")
+				    ),
+				    Typed = Table.TransformColumnTypes(
+				        Source,
+				        {
+				            {"customer_key", type text},
+				            {"customer_id", type text},
+				            {"is_unknown", type logical},
+				            {"first_observed_purchase_date", type date},
+				            {"cohort_month", type date}
+				        }
+				    ),
+				    #"Sorted Rows" = Table.Sort(Typed,{{"customer_id", Order.Ascending}})
+				in
+				    #"Sorted Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

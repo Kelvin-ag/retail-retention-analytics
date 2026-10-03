@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "30d7da0d0921876ee193",
+  "displayName": "Customer Priorities",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "visualInteractions": [
+    {
+      "source": "d58953310026563471b0",
+      "target": "2ccf705f8ac2ba58bb26",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d58953310026563471b0",
+      "target": "4c448d33874665202334",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d58953310026563471b0",
+      "target": "1cbb143c60b296e7b0e1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d58953310026563471b0",
+      "target": "f4ee255078e37003cd29",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f4ee255078e37003cd29",
+      "target": "d58953310026563471b0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f4ee255078e37003cd29",
+      "target": "2ccf705f8ac2ba58bb26",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f4ee255078e37003cd29",
+      "target": "4c448d33874665202334",
+      "type": "NoFilter"
+    },
+    {
+      "source": "f4ee255078e37003cd29",
+      "target": "1cbb143c60b296e7b0e1",
+      "type": "NoFilter"
+    }
+  ]
+}
