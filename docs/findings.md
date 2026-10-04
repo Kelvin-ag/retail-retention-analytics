@@ -1,25 +1,33 @@
-# Preliminary Findings
-- Growth depends on unidentified transactions. January–November net product revenue increased by 2.19% (£184,007.52) between 2010 and 2011.
-- Identified-customer revenue fell by £66,083.54, while unidentified revenue increased by £250,091.06. 
-- Unidentified paid orders fell from 1,382 to 1,175, but their median sales value rose from £118.50 to £402.03. 
-- The ten largest unidentified invoices accounted for a smaller share of sales, suggesting the increase was not solely concentrated in those invoices. 
-- The data cannot establish whether this reflects purchasing behaviour or changes in transaction recording.
-- Reactivated orders contributed 19.57% of identified product sales in January–November 2011 under the 90-day rule, compared with 10.05% in 2010. The increase persists at 60- and 120-day thresholds, but unequal historical coverage limits interpretation.
-- 868 high-value repeat customers contributed 69.76% of identified sales.
-- 108 high-value at-risk customers contributed 5.37% of identified sales.
+# Retail revenue and retention: findings and recommendation
 
-**Recommendation**: investigate how unidentified invoices are generated and whether their recording changed before attributing overall growth to acquisition or retention. Continue analysing identified customers separately and show customer-ID revenue coverage alongside the headline figures.
+**Reporting period:** January–November 2011 compared with January–November 2010. Customer snapshot: 1 December 2011. Figures reflect the unrestricted report, not the UK_Only demonstration role.
 
-## At-risk threshold sensitivity
-The 90-day rule identifies 108 customers associated with £442,570.72 in historical sales. At 120 days, 74 customers remain, associated with £351,421.30. Prioritisation depends on the chosen inactivity threshold; these amounts are past sales, not predicted losses or recoverable revenue.
+## The question and answer
 
-## Sector Benchmark
-- November 2011 retailer growth: 2.30%.
-- ONS non-store retail sales-value index growth: 19.05%.
-- Gap: −16.75 percentage points.
-- Source: J596, release 21 August 2026.
-- Interpretation: slower growth that month against a broad benchmark; differences in geography and business mix prevent a direct market-share conclusion.
+Is revenue growth healthy, and where should retention budget go next?
 
-## Product Concentration
-#### January - November before credits
-- The top ten products contribute 8.48% of product sales. Across the wider range, 818 of 3,812 products (21.46%) generate 80% of sales. Dependence is spread across hundreds of products rather than a handful of bestsellers.
+Net product revenue increased **2.19%**, but the results do not establish stronger identified-customer performance. Identified-customer revenue declined, while revenue without a customer ID increased. Growth also lagged the selected ONS benchmark by **12.41 percentage points**. Prioritise investigating customer-ID coverage and testing a targeted retention intervention before committing a larger budget.
+
+## Three supporting findings
+
+| Finding | Evidence | Business implication |
+|---|---|---|
+| Growth came from unidentified-customer revenue | Net product revenue rose from **£8,407,010.94** to **£8,591,018.46**, an increase of **£184,007.52**. Unidentified-customer revenue increased **£250,091.06**, offsetting a **£66,083.54** decline in identified-customer revenue. | The increase cannot be attributed reliably to customer acquisition or retention. Investigate whether changes in identification coverage contributed to the pattern. |
+| Growth lagged the selected sector benchmark | Retailer growth was **2.19%**, versus **14.60%** for the selected ONS index: a gap of **−12.41 percentage points**. | Positive growth alone is insufficient evidence of strong relative performance. The index provides directional context, not a like-for-like target. |
+| There is a defined audience for a retention pilot | The snapshot contains **108 high-value at-risk customers**, representing **£442,570.72** in product sales before credits during **1 December 2010–30 November 2011**. | These customers provide a prioritised audience for a controlled pilot. Historical spending is neither forecast revenue nor an estimate of revenue that can be recovered. |
+
+## Recommended action and measurement
+
+1. **Investigate identification coverage.** Compare the share of revenue without customer IDs across months and, where supporting records exist, order-entry processes. Check for changes in data capture or customer linkage before interpreting the increase as new demand. Preserve unidentified transactions in overall revenue reporting.
+2. **Test retention before scaling.** Review the 108-customer audience for contactability and operational suitability. Where feasible, randomly assign eligible customers to a treatment group and an untreated holdout. Predefine a 90-day evaluation window and compare purchase rates and net product revenue per assigned customer. Account for credits and campaign costs; assess incremental contribution if margin data is available.
+3. **Set a spending decision after the pilot.** Scale only if the evidence supports an economically worthwhile uplift. With a small audience, report uncertainty. No defensible recoverable-revenue or ROI estimate is available from these data alone.
+
+## Limitations
+
+This is a constructed stakeholder brief using historical data from one UK-based retailer with international customers. The selected ONS benchmark covers Great Britain and differs in business mix and geographic coverage. The reported gap is not proof of a causal explanation for underperformance.
+
+Missing customer IDs prevent reliable customer-level attribution for those transactions. At-risk status is inferred from purchase behaviour, not confirmed churn; first-observed customers are not necessarily newly acquired customers. Snapshot spending is before credits, whereas the headline revenue measure includes signed product credits. No intervention was performed and no realised business impact is claimed.
+
+## Supporting project records
+
+See [metric definitions](metric_definitions.md), [data-quality decisions](data_quality.md), and [validation figures](expected_values.md). The growth rates and benchmark gap above were checked against the report values supplied by the project author; this document does not independently revalidate the underlying DAX or source files.
