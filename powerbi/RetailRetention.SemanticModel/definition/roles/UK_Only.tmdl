@@ -1,0 +1,13 @@
+role UK_Only
+	modelPermission: read
+
+	tablePermission fct_order_lines = [country] == "United Kingdom"
+
+	tablePermission dim_customers = [UK Customer] == true() || [is_unknown] == true()
+
+	tablePermission fct_customer_snapshot = RELATED(dim_customers[UK Customer]) = TRUE()
+
+	tablePermission fct_cohort_retention = FALSE()
+
+	annotation PBI_Id = 0f9d588bc59547a6957e599260ae0022
+

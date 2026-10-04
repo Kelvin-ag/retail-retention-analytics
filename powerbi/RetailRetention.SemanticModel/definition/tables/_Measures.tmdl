@@ -347,6 +347,26 @@ table _Measures
 		displayFolder: Products
 		lineageTag: b40d2d24-4086-4a4c-bde0-d57bc7a5a380
 
+	measure 'Customer Country Count' =
+			
+			DISTINCTCOUNT(fct_order_lines[country])
+		lineageTag: 61fc6ec2-1d9f-4aa8-be67-6981366d2d44
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Customer Countries' =
+			
+			CONCATENATEX(
+			    VALUES(fct_order_lines[country]),
+			    fct_order_lines[country],
+			    ", ",
+			    fct_order_lines[country],
+			    ASC
+			)
+		lineageTag: b6fdeeed-97bc-451e-9399-a2011edeeae5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Placeholder
 		isHidden
 		formatString: 0

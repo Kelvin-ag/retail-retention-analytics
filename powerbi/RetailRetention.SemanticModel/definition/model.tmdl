@@ -33,5 +33,7 @@ ref table fct_sector_index
 ref table 'Segment Metric'
 ref table 'Time Comparison'
 
+ref role UK_Only
+
 ref cultureInfo en-US
 

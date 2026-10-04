@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "80ad6d67142de6731c9d",
+  "name": "92fcb4b9b8d0bc8237b4",
   "position": {
-    "x": 894.40993788819878,
+    "x": 1333.0020703933749,
     "y": 540.62111801242236,
-    "z": 4000,
-    "height": 258.38509316770188,
-    "width": 437.26708074534162,
-    "tabOrder": 4000
+    "z": 4003,
+    "height": 425.34161490683232,
+    "width": 488.944099378882,
+    "tabOrder": 4003
   },
   "visual": {
     "visualType": "tableEx",
@@ -23,11 +23,11 @@
                       "Entity": "fct_order_lines"
                     }
                   },
-                  "Property": "order_customer_status"
+                  "Property": "country"
                 }
               },
-              "queryRef": "fct_order_lines.order_customer_status",
-              "nativeQueryRef": "order_customer_status"
+              "queryRef": "fct_order_lines.country",
+              "nativeQueryRef": "country"
             },
             {
               "field": {
@@ -37,25 +37,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Paid Orders"
+                  "Property": "Net Product Revenue"
                 }
               },
-              "queryRef": "_Measures.Paid Orders",
-              "nativeQueryRef": "Paid Orders"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Product Sales"
-                }
-              },
-              "queryRef": "_Measures.Product Sales",
-              "nativeQueryRef": "Product Sales"
+              "queryRef": "_Measures.Net Product Revenue",
+              "nativeQueryRef": "Net Product Revenue"
             }
           ]
         }

@@ -3,7 +3,6 @@ table dim_customers
 
 	column customer_key
 		dataType: string
-		isHidden
 		lineageTag: 9c243560-f982-4456-aad7-c24940bf2432
 		summarizeBy: none
 		sourceColumn: customer_key
@@ -69,6 +68,27 @@ table dim_customers
 			    "Identified"
 			)
 		lineageTag: 674628c6-cfc8-4a37-865a-edf6a17cce56
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UK Customer' =
+			
+			VAR CustomerRows =
+			    RELATEDTABLE(fct_order_lines)
+			VAR UKRows =
+			    COUNTROWS(
+			        FILTER(
+			            CustomerRows,
+			            fct_order_lines[country] = "United Kingdom"
+			        )
+			    )
+			RETURN
+			    NOT(dim_customers[is_unknown])
+			        && UKRows > 0
+			        && UKRows = COUNTROWS(CustomerRows)
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: c287e8f9-d3e0-48c6-ac68-8d929f57021e
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
